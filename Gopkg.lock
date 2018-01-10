@@ -17,6 +17,12 @@
   revision = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a"
 
 [[projects]]
+  name = "github.com/golang/mock"
+  packages = ["gomock"]
+  revision = "13f360950a79f5864a972c786a10a50e44b69541"
+  version = "v1.0.0"
+
+[[projects]]
   name = "github.com/leekchan/accounting"
   packages = ["."]
   revision = "a35854c075934d6aa1a6c1ab3ea8a82ee0dc1a93"
@@ -79,6 +85,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a539bbfc0882f4b1af24412c0ded7bd25597823653ae8d1aa7f64a8a4a03aa95"
+  inputs-digest = "a201f70a253c7a7d6f402c29e0fbfd9967ded4debdfd69500866e8dbcd8abd32"
   solver-name = "gps-cdcl"
   solver-version = 1
