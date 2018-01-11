@@ -9,8 +9,6 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/pkg/errors"
-
 	"github.com/leekchan/accounting"
 )
 
@@ -23,7 +21,7 @@ var (
 func main() {
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 	case price.FullCommand():
-		httpManager := HttpManager{}
+		httpManager := HTTPManager{}
 		if price, err := runPrice(httpManager, *priceRaw); err != nil {
 			app.Errorf("%s", err)
 		} else {
@@ -32,28 +30,28 @@ func main() {
 	}
 }
 
-func runPrice(httpManager HttpRequester, rawFormat bool) (string, error) {
+func runPrice(httpManager HTTPRequester, rawFormat bool) (string, error) {
 	_, body, errs := httpManager.Get()
 	if errs != nil {
-		return "", errors.New(fmt.Sprintf("Unable to get Bitcoin price in USD.\n%v\n", errs))
+		return "", fmt.Errorf("unable to get bitcoin price in USD: %v", errs)
 	}
 
 	ticker := BTCTicker{}
 	err := json.Unmarshal([]byte(body), &ticker)
 	if err != nil {
-		return "", errors.New(fmt.Sprintf("Unable to parse ticker data. %v\n", err))
+		return "", fmt.Errorf("unable to parse ticker data: %v", err)
 	}
 
-	if price, err := strconv.ParseFloat(ticker.Price, 32); err != nil {
-		return "", errors.New(fmt.Sprintf("Unable to parse the ticker price. %v\n", err))
-	} else {
-		if rawFormat {
-			return fmt.Sprintf("%f\n", price), nil
-		} else {
-			bigPrice := big.NewFloat(price)
-			ac := accounting.Accounting{Symbol: "$", Precision: 2}
-			return fmt.Sprintf("%s USD\n", ac.FormatMoneyBigFloat(bigPrice)), nil
-		}
+	price, err := strconv.ParseFloat(ticker.Price, 32)
+	if err != nil {
+		return "", fmt.Errorf("unable to parse the ticker price: %v", err)
 	}
 
+	if rawFormat {
+		return fmt.Sprintf("%f\n", price), nil
+	}
+
+	bigPrice := big.NewFloat(price)
+	ac := accounting.Accounting{Symbol: "$", Precision: 2}
+	return fmt.Sprintf("%s USD\n", ac.FormatMoneyBigFloat(bigPrice)), nil
 }

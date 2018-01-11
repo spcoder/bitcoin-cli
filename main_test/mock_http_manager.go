@@ -5,9 +5,10 @@
 package main_test
 
 import (
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
 	gorequest "github.com/parnurzeal/gorequest"
-	reflect "reflect"
 )
 
 // MockHttpRequester is a mock of HttpRequester interface

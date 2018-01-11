@@ -1,5 +1,6 @@
 package main
 
+// BTCTicker allows mapping ticker data retrieved from gdax
 type BTCTicker struct {
 	Ask     string `json:"ask"`
 	Bid     string `json:"bid"`

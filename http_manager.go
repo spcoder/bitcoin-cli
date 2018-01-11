@@ -2,13 +2,16 @@ package main
 
 import "github.com/parnurzeal/gorequest"
 
-type HttpRequester interface {
+// HTTPRequester is an interface for getting BTC ticker data
+type HTTPRequester interface {
 	Get() (gorequest.Response, string, []error)
 }
 
-type HttpManager struct {
+// HTTPManager is a type for getting BTC ticker data
+type HTTPManager struct {
 }
 
-func (HttpManager) Get() (gorequest.Response, string, []error) {
+// Get retrieves BTC ticker data from gdax
+func (HTTPManager) Get() (gorequest.Response, string, []error) {
 	return gorequest.New().Get("https://api.gdax.com/products/BTC-USD/ticker").End()
 }
