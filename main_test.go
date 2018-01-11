@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/spcoder/bitcoin/main_test"
+	"github.com/spcoder/bitcoin-cli/main_test"
 )
 
 func TestRunPrice(t *testing.T) {
