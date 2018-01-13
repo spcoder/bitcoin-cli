@@ -1,0 +1,15 @@
+bitcoin: error: bitcoin: error: expected command but got "bad"
+
+usage: bitcoin [<flags>] <command> [<args> ...]
+
+A command-line Bitcoin application.
+
+Flags:
+  --help  Show context-sensitive help (also try --help-long and --help-man).
+
+Commands:
+  help [<command>...]
+    Show help.
+
+  price [<flags>]
+    Output the current price of Bitcoin in USD.
